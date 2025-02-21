@@ -1,6 +1,9 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+
+import type React from "react";
+import type { Metadata } from "next";
+import { ThemeProvider } from "@/components/themes/theme-provider";
+import localFont from "next/font/local";
 
 const Inter = localFont({
   src: "./fonts/InterVF.ttf",
@@ -29,11 +32,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${Inter.variable} ${SpaceGrotesk.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
